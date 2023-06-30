@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+  <title>Homepage</title>
+    <style>
+    /* Style the form elements */
+    
+    body{
+    background-color:#00A6A6;
+    
+  }
+    button[type="button"] {
+      width: 100%;
+      background-color: #4CAF50;
+      border: 1px solid #ccc;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+      button[type="submit"] {
+      width: 100%;
+      background-color: #4CAF50;
+      border: 1px solid #ccc;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+  
+h2[id="Welcome"]{
+	color:RED;
+}
+
+form[id="Logout"]{
+position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px 20px;
+    margin: 8px 0;
+    
+    
+    border-radius: 4px;
+}
+
+   
+  </style>
+<script src="homepage.js" charset="utf-8" defer></script>
+<script src="Acquisto.js" charset="utf-8" defer></script>
+<script src="Vendo.js" charset="utf-8" defer></script>
+<script src="utils.js" charset="utf-8" defer></script>
+</head>
+<body>
+
+<div align="right">
+		<a href="Logout">Logout</a>
+</div>
+  <h2 id="Welcome">Welcome back!</h2><br>
+  <p>Nice to see you again <span id="id_username"></span></p>
+  <div id="error" style="color: red;"></div>
+   
+  	<fieldset>
+  		<button type="button" id="VendoButton">VENDO</button><br>
+  	</fieldset>
+    
+
+  	<fieldset>
+  		
+    	<button type="button" id="AcquistoButton">ACQUISTO</button><br>
+  	</fieldset>
+     
+     
+  <div id="acquisto" >
+  	<div id="asteOld"></div>
+  		<h3 id="Ricerca">Ricerca delle aste tramite parola chiave</h3>
+			<form action="#" id="formRicercaParolaChiave">
+				<fieldset>
+  					Parola chiave:<input type="text" id="keyword" name="keyword" required><br>
+  					<button type="button" id="keywordSearchButton">Ricerca asta</button>
+  				</fieldset>
+			</form>
+			<!-- Elenco aste trovate tramite ricerca keyword -->
+			<div id="auctionKeyword">
+				<ul id="auctionList"></ul>
+			</div>
+
+		<div id="offerteAggiudicate">
+		<!-- Offerte aggiudicate dall'utente -->
+		<h3>Offerte aggiudicate</h3>
+ 			<table border=1 id="auctionWon">
+    			<thead>
+        			<tr>
+            			<th>Asta</th>
+            			<th>Prezzo finale</th>
+            			<th>Utente Creatore</th>
+            			<th>Articoli</th>
+        			</tr>
+    			</thead>
+    			<tbody id="auctionWon_body">
+    			<!--TD idAsta
+    				TD prezzo Corrente asta
+    				TD nome Creatore asta
+    				ARTICOLO
+    				 Nome articolo
+    								 Descrizione articolo
+    								 prezzo articolo
+    								 immagine articolo
+    							 
+    			 -->
+    			</tbody>
+			</table>
+ 		</div>
+ </div>
+ 
+
+ <div id="offerta" style="display: none">
+ <!-- Lista articoli in asta -->
+
+ <table border =1 id="auctionItem">
+        <thead>
+            <tr>
+                <th>Nome articolo</th>
+                <th>Descrizione</th>
+                <th>Prezzo articolo</th>
+                <th>Immagine</th>
+            </tr>
+        </thead>
+        <tbody id="auctionItem_body">
+        <!-- itemName
+        	 itemDescription
+        	 itemPrice
+        	 itemImage
+         -->
+        </tbody>
+    </table> <br><br>
+    
+<div id="offerteAsta" style="display: none">
+    <!-- Lista offerte -->
+<table border=1 id="auctionOffer">
+        <thead>
+            <tr>
+                <th>Utente</th>
+                <th>Prezzo</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody id="auctionOffers_body">
+        <!-- Utente (idUtente)
+        	 prezzo offerto
+        	 orario offerts
+       	-->
+        </tbody>
+    </table> <br> <br>
+</div>
+    
+    
+    <h2>Fai un'offerta</h2><br>
+  <form action="#" id="formcreaOfferta">
+  	<fieldset>
+  		<input type="number" step="0.01" id="offerprice" name="offerprice" required><br>
+    	<input type="hidden" id="idAstaOffer" name="idAstaOffer">
+    	<button type="button" id="createOfferButton">Invia l'offerta</button><br>
+  	</fieldset>
+    
+  </form>
+ </div>
+ 
+  <div id="vendo"  style="display: none">
+  
+<!-- Lista aste create dall'utente e non ancora chiuse e una lista di aste create dall'utente e chiuse -->
+<!-- ASTE NON CHIUSE -->
+<div id="AsteNonChiuse">
+<h3>Aste non chiuse</h3>
+ <table border=1 id="auctionNotClosed">
+    <thead>
+        <tr>
+            <th>Asta</th>
+            <th>Prezzo corrente</th>
+            <th> Giorni mancanti alla scandenza </th>
+            <th> Ore mancanti alla scandenza </th>
+            <th>Articoli</th>
+        </tr>
+    </thead>
+    <tbody id="auctionNotClosed_body">
+    <!-- IDASTA (ANCORA)
+    	 current price asta
+    	 giorni mancanti
+    	 ore mancantu
+    	 
+    	 Articolo in asta
+    	 idArticolo
+    	 Nome articolo
+     -->
+    </tbody>
+</table>
+    
+</div>
+
+<!-- ASTE CHIUSE -->
+  <div id="AsteChiuse">
+    <h3 >Aste create e chiuse</h3>
+     <table border =1 id="auctionClosed">
+        <thead>
+            <tr>
+                <th>IdAsta</th>
+                <th>Data partenza</th>
+                <th>Data chiusura</th>
+                <th>Prezzo finale</th> 
+                <th>Articoli</th>
+            </tr>
+        </thead>
+        <tbody id="auctionClosed_body">
+        <!-- AstaId (ancora)
+        	 data inziio
+        	 data fine
+        	 current price
+        	 
+        	 Articolo
+        	 idArticolo
+        	 Articolo name
+         -->
+
+        </tbody>
+    </table> 
+    </div>
+
+    
+<!-- Due form, uno per creare una nuova asta e uno per creare un nuovo articolo -->
+<h3>Crea un nuovo articolo</h3>
+<form action="#" enctype="multipart/form-data">
+	<fieldset>
+		<label for="name">Nome articolo:</label>
+  		<input type="text" id="name" name="name" required><br>
+  		<label for="descrizione">Descrizione:</label>
+		<textarea id="descrizione" name="descrizione" rows="5" cols="50" required></textarea><br>
+		<label for="image"><b>Immagine</b></label>	
+  		<input type=file name="image" id="image" required><br>
+  		<label for="price">Prezzo articolo:</label>
+  		<input type="number" step="0.01" min="0.0" id="price" name="price" required><br>
+  		<button type="button" id="createArticleButton">Crea articolo</button>
+	</fieldset>
+</form>
+
+
+<h3>Crea una nuova asta</h3>
+<p>Articoli disponibili</p>
+<form action="#">
+	<fieldset>
+		<div id="availableArticles">
+		<!-- Creo input checkbox per ogni articolo disponibile dell'utente -->
+		</div>
+		<br>
+		Minimo aumento<input type="number" id="minimumIncrease" name="minimumIncrease" min="0.0" required>
+		Data fine<input type="datetime-local" id="dateExpiration" name="dateExpiration" required><br>
+		<button type="button" id="createAuctionButton">Crea asta</button>
+	</fieldset>
+</form>
+</div>
+
+<div id="dettaglioAsta" style="display: none"></div>
+</body>
+</html>
